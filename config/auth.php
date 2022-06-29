@@ -65,6 +65,11 @@ return [
             'driver' => 'session',
             'provider' => 'bloggers',
         ],
+
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
     ],
 
     /*
@@ -97,6 +102,10 @@ return [
             'bloggers' => [
                 'driver' => 'eloquent',
                 'model' => App\Models\Blogger::class,
+            ],
+            'students' => [
+                'driver' => 'eloquent',
+                'model' => App\Models\Student::class,
             ],
         ],
 

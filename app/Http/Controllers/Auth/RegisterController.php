@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Blogger;
+use App\Models\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +43,7 @@ class RegisterController extends Controller
         $this->middleware('guest');
         $this->middleware('guest:admin');
         $this->middleware('guest:blogger');
+        $this->middleware('guest:student');
     }
 
     /**
@@ -73,6 +75,10 @@ class RegisterController extends Controller
     public function showBloggerRegisterForm()
     {
         return view('auth.register', ['url' => 'blogger']);
+    }
+    public function showStudentRegisterForm()
+    {
+        return view('auth.register', ['url' => 'student']);
     }
 
     /**
@@ -119,5 +125,16 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
         return redirect()->intended('login/blogger');
+    }
+
+    protected function createStudent(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        Student::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        return redirect()->intended('login/student');
     }
 }
